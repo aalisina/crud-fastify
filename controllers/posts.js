@@ -23,8 +23,16 @@ const addPost = (req, res) => {
     res.code(201).send(newPost)
 }
 
+const deletePost = (req, res) => {
+    const { id } = req.params
+    posts = posts.filter((post)=> post.id !== id)
+    res.send({message: `Post ${id} has been deleted.`})
+};
+
+
 module.exports = { 
     getPost, 
     getPosts, 
-    addPost 
+    addPost, 
+    deletePost, 
 }
