@@ -1,4 +1,5 @@
 const posts = require('../posts');
+const { getPosts, getPost } = require('../controllers/posts');
 
 // Post Schema
 const Post = {
@@ -19,9 +20,7 @@ const getPostsOpts = {
                 },
             },
         },
-    handler: function (req, res) {
-        res.send(posts)
-    },
+    handler: getPosts,
 }
 
 
@@ -32,11 +31,7 @@ const getPostOpts = {
         },
     },
     
-    handler: function (req, res) {
-        const { id } = req.params
-        const post = posts.find((post)=> post.id === id)
-        res.send(post)
-    },
+    handler: getPost,
 }
 
 function postRoutes (app, options, done) {
