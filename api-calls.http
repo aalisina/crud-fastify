@@ -1,2 +1,6 @@
-### GET to root
-GET http://localhost:5000 HTTP/1.1
+### GET all posts
+GET http://localhost:5000/posts HTTP/1.1
+
+### GET one post
+GET http://localhost:5000/posts/3 HTTP/1.1
+
