@@ -1,5 +1,5 @@
 const posts = require('../posts');
-const { getPosts, getPost } = require('../controllers/posts');
+const { getPosts, getPost, addPost } = require('../controllers/posts');
 
 // Post Schema
 const Post = {
@@ -34,11 +34,36 @@ const getPostOpts = {
     handler: getPost,
 }
 
+const addPostOpts = {
+    schema: {
+        body: {
+            type: 'object',
+            required: ['content', 'author'],
+            properties: {
+                content: { type: 'string'},
+                author: { type: 'string'},
+
+            },
+
+        },
+        response: {
+            201: Post
+        },
+    },
+    
+    handler: addPost,
+}
+
 function postRoutes (app, options, done) {
     
+    // get all posts
     app.get('/posts', getPostsOpts)
     
+    // get one post
     app.get('/posts/:id', getPostOpts)
+
+    // add one post 
+    app.post('/posts', addPostOpts)
 
     done()
 }
