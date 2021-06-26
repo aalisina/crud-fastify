@@ -29,10 +29,35 @@ const deletePost = (req, res) => {
     res.send({message: `Post ${id} has been deleted.`})
 };
 
+const updatePost = (req, res) => {
+    const { id } = req.params
+    const { body } = req
+    posts = posts.map((post)=> (post.id === id ? modifyPost(body, post) 
+    : post ))
+
+    post = posts.find((post) => post.id === id)
+    res.json({post})
+};
+
+const modifyPost = (body, post) => {
+    if (!body.content & !body.author ) throw new Error('Body cannot be empty');
+    
+    if (!body.content & body.author) return post = {
+        content: post.content,
+        id: post.id,
+        author: body.author,
+    }
+    if(!body.author & body.content ) return post = {
+        id: post.id,
+        author: post.author,
+        content: body.content,
+    }
+}
 
 module.exports = { 
     getPost, 
     getPosts, 
     addPost, 
-    deletePost, 
+    deletePost,
+    updatePost, 
 }

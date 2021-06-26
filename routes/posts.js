@@ -1,5 +1,11 @@
 const posts = require('../posts');
-const { getPosts, getPost, addPost, deletePost } = require('../controllers/posts');
+const { 
+    getPosts, 
+    getPost, 
+    addPost, 
+    deletePost,
+    updatePost, 
+} = require('../controllers/posts');
 
 // Post Schema
 const Post = {
@@ -69,6 +75,16 @@ const deletePostOpts = {
     handler: deletePost,
 }
 
+const updatePostOpts = {
+    schema: {
+        response: {
+            200: Post
+        },
+    },
+    
+    handler: updatePost,
+}
+
 function postRoutes (app, options, done) {
     
     // get all posts
@@ -82,6 +98,9 @@ function postRoutes (app, options, done) {
 
     // delete one post
     app.delete('/posts/:id', deletePostOpts)
+
+    // update one post
+    app.patch('/posts/:id', updatePostOpts)
 
     done()
 }
